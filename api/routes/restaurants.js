@@ -1,57 +1,18 @@
 import express from "express";
+import { createRestaurant, deleteRestaurant, getRestaurant, getRestaurants, updateRestaurant } from "../controllers/restaurant.js";
 import Restaurant from "../models/Restaurant.js";
+import { createError } from "../utils/error.js";
 
 const router = express.Router();
 
-router.post("/", async (req, res) => {
-  const newRestaurant = new Restaurant(req.body);
+router.post("/", createRestaurant);
 
-  try {
-    const savedRestaurant = await newRestaurant.save();
-    res.status(200).json(savedRestaurant);
-  } catch (error) {
-    res.status(500).json(error);
-  }
-});
+router.put("/:id", updateRestaurant);
 
-router.put("/:id", async (req, res) => {
-  try {
-    const updatedRestaurant = await Restaurant.findByIdAndUpdate(
-      req.params.id,
-      { $set: req.body },
-      { new: true }
-    );
-    res.status(200).json(updatedRestaurant);
-  } catch (error) {
-    res.status(500).json(error);
-  }
-});
+router.delete("/:id", deleteRestaurant);
 
-router.delete("/:id", async (req, res) => {
-  try {
-    await Restaurant.findByIdAndDelete(req.params.id);
-    res.status(200).json("Restaurant has been deleted");
-  } catch (error) {
-    res.status(500).json(error);
-  }
-});
+router.get("/:id", getRestaurant);
 
-router.get("/:id", async (req, res) => {
-  try {
-    const restaurant = await Restaurant.findById(req.params.id);
-    res.status(200).json(restaurant);
-  } catch (error) {
-    res.status(500).json(error);
-  }
-});
-
-router.get("/", async (req, res) => {
-  try {
-    const restaurants = await Restaurant.find();
-    res.status(200).json(restaurants);
-  } catch (error) {
-    next(error)
-  }
-});
+router.get("/", getRestaurants);
 
 export default router;
