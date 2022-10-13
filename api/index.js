@@ -6,6 +6,7 @@ import usersRoute from "./routes/users.js"
 import restaurantsRoute from "./routes/restaurants.js"
 import tablesRoute from "./routes/tables.js"
 import cookieParser from 'cookie-parser'
+import cors from "cors"
 
 const app= express()
 dotenv.config()
@@ -29,6 +30,7 @@ app.get("/users", (req,res)=>{
 })
 
 //middlewares 
+app.use(cors())
 app.use(cookieParser())
 app.use(express.json())
 
