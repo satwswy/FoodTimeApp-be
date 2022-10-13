@@ -62,3 +62,24 @@ export const countByCity = async (req,res,next)=>{
       next(error)
     }
 }
+
+export const countByType = async (req,res,next)=>{
+
+  try {
+    const pizzaCount = await Restaurant.countDocuments({type:"pizza"})
+    const burgersCount = await Restaurant.countDocuments({type:"burgers"})
+    const pastaCount = await Restaurant.countDocuments({type:"pasta"})
+    const grillCount = await Restaurant.countDocuments({type:"grill"})
+    const seaFoodCount = await Restaurant.countDocuments({type:"seeFood"})
+
+      res.status(200).json([
+        {type:"pizza",count:pizzaCount},
+        {type:"burgers",count:burgersCount},
+        {type:"pasta",count:pastaCount},
+        {type:"grill",count:grillCount},
+        {type:"seaFood",count:seaFoodCount},
+      ]);
+    } catch (error) {
+      next(error)
+    }
+}
