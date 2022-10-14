@@ -11,7 +11,6 @@ const RestaurantSchema = new mongoose.Schema({
   desc: { type: String, required: true },
   rating: { type: Number, min: 0, max: 5 },
   tables: { type: [String] },
-  cheapestPrice: { type: Number, required: true },
   featured: { type: Boolean, default: false },
 });
 
