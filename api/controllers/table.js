@@ -32,6 +32,21 @@ export const updateTable = async (req, res, next) => {
     next(error);
   }
 };
+export const updateTableAvailability = async (req, res, next) => {
+  try {
+    await Table.updateOne(
+      { "tableNumbers._id": req.params.id },
+      {
+        $push: {
+          "tableNumbers.$.unavailableDates": req.body.dates
+        },
+      }
+    );
+    res.status(200).json("Table status has been updated.");
+  } catch (err) {
+    next(err);
+  }
+};
 
 export const deleteTable = async (req, res, next) => {
   const restaurantId = req.params.restaurantId;
