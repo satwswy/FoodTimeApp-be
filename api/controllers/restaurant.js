@@ -43,8 +43,11 @@ export const getRestaurant = async (req,res,next)=>{
 }
 
 export const getRestaurants = async (req,res,next)=>{
+  const {...queries} = req.query;
     try {
-        const restaurants = await Restaurant.find();
+        const restaurants = await Restaurant.find({
+          ...queries
+        });
         res.status(200).json(restaurants);
       } catch (error) {
         next(error)
