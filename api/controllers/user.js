@@ -50,7 +50,6 @@ export const getUserRestaurants = async (req, res, next) => {
         return Restaurant.findById(restaurant);
       })
     );
-    console.log('LIST', list)
     res.status(200).json(list)
   } catch (err) {
     next(err);
