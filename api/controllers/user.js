@@ -1,5 +1,6 @@
 import User from "../models/User.js";
 import Restaurant from "../models/Restaurant.js";
+import Table from "../models/Table.js";
 
 export const updateUser = async (req, res, next) => {
   try {
@@ -55,3 +56,4 @@ export const getUserRestaurants = async (req, res, next) => {
     next(err);
   }
 };
+

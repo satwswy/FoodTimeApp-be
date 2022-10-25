@@ -102,3 +102,31 @@ export const getRestaurantTables = async (req, res, next) => {
     next(err);
   }
 };
+
+export const getReservations = async (req, res, next) => {
+  // we need to call this endpoint passing the id of restaurant as a query param
+  // then use this id to grab the restaurant object from his controller
+  // and take just the tables of that particular restaurant
+  try {
+    const restaurant = await Restaurant.findById(req.params.id);
+    const list = await Promise.all(
+      restaurant.tables.map((table) => {
+        return Table.findById(table);
+      })
+    );
+    // const reservations = await Table.find(); // TODO: don't grab all the tables, but just the ones
+    // for the restaurant you're passing in the query param
+    let array = []
+    list.forEach(table =>{
+      table.tableNumbers.forEach(tableNumber=>{
+        if(tableNumber.unavailableDates.length >0){
+          array.push(tableNumber)
+        }
+        
+      })
+    })
+    res.status(200).json(array);
+  } catch (error) {
+    next(error);
+  }
+};
