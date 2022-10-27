@@ -10,7 +10,6 @@ const UserSchema = new mongoose.Schema(
     },
     restaurants: [{
       type: String,
-      required:true
     }],
     img: {
       type: String,
