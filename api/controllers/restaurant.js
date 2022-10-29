@@ -77,7 +77,6 @@ export const getRestaurants = async (req, res, next) => {
          let food = typesList.includes(current)
          foodList.push(food)
         })
-        console.log(foodList)
         if(foodList.includes(true)){
           filteredRestaurants.push(restaurant)
         }
