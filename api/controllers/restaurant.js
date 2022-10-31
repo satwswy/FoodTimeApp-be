@@ -143,7 +143,6 @@ export const getRestaurantTables = async (req, res, next) => {
         return Table.findById(table);
       })
     );
-    console.log("LIST", list);
     res.status(200).json(list);
   } catch (err) {
     next(err);
